@@ -3,6 +3,8 @@ import modelo.Estudiante;
 import modelo.EventoUniversitario;
 import modelo.Sala;
 
+import java.io.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +56,51 @@ public class Main {
         // Total de eventos creados
         System.out.println("\n--- Total de Eventos Creados ---");
         System.out.println("Totalidad de eventos creados: " + EventoUniversitario.getCantidadEventos());
+
+        // Persistencia y Serializacion
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("evento.dat"))) {
+            oos.writeObject(evento); // <- ACA SE PERSISTE TODO
+            System.out.println("\nEvento persistido correctamente en el archivo 'evento.dat'");
+        } catch (IOException e) {
+            System.err.println("Error al persistir el evento: " + e.getMessage());
+        }
+
+        //Recupero de datos (Deserealizacion) "CASO FALLIDO"
+        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream("eventito.dat"))) {
+            EventoUniversitario eventoRecuperado = (EventoUniversitario) ios.readObject();
+            System.out.println("\nEvento recuperado correctamente desde el archivo:");
+            eventoRecuperado.mostrarDatos();
+
+        } catch (FileNotFoundException e) {
+            // Archivo inexistente
+            System.err.println("Error de lectura: No se encontró el archivo especificado: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            // Clase no encontrada
+            System.err.println("Error de compatibilidad: No se encontró la clase del objeto: " + e.getMessage());
+        } catch (IOException e) {
+            // Error general
+            System.err.println("Error de E/S al leer el archivo: " + e.getMessage());
+        } finally {
+            System.out.println("Proceso de deserialización finalizado.");
+        }
+
+        //Recupero de datos (Deserealizacion) "CASO EXITOSO"
+        try (ObjectInputStream ios = new ObjectInputStream(new FileInputStream("evento.dat"))) {
+            EventoUniversitario eventoRecuperado = (EventoUniversitario) ios.readObject();
+            System.out.println("\nEvento recuperado correctamente desde el archivo:");
+            eventoRecuperado.mostrarDatos();
+
+        } catch (FileNotFoundException e) {
+            // Archivo inexistente
+            System.err.println("Error de lectura: No se encontró el archivo especificado: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            // Clase no encontrada
+            System.err.println("Error de compatibilidad: No se encontró la clase del objeto: " + e.getMessage());
+        } catch (IOException e) {
+            // Error general
+            System.err.println("Error de E/S al leer el archivo: " + e.getMessage());
+        } finally {
+            System.out.println("Proceso de deserialización finalizado.");
+        }
     }
 }

@@ -1,4 +1,4 @@
-# Trabajo Práctico N° 1 - Programación Orientada a Objetos en Java
+# Trabajo Práctico N° 2 - Programación Orientada a Objetos en Java
 
 * **Materia:** Paradigmas de Programación
 * **Institución:** UTN - Facultad Regional Mendoza (FRM)
