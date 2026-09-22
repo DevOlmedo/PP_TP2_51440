@@ -34,7 +34,7 @@ public abstract class Actividad implements Serializable {
             inscripciones.add(nuevaInscripcion);
             return nuevaInscripcion;
         } else {
-            throw new CupoExcedidoException("Cupo Excedido de Inscripciones (Máximo: " + cupoMaximo + ")");
+            throw new CupoExcedidoException("Cupo excedido en " + getTipo() + " '" + titulo + "' (Máximo permitido: " + cupoMaximo + ")");
         }
     }
 

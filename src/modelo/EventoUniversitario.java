@@ -57,6 +57,9 @@ public class EventoUniversitario implements Serializable {
     public void crearTaller(int id, String titulo, int cupo, boolean requiereNotebook) {
         this.actividades.add(new Taller(id, titulo, cupo, requiereNotebook));
     }
+    public void crearCurso(int id, String titulo, int cupo, int nivel) {
+        this.actividades.add(new modelo.actividades.Curso(id, titulo, cupo, nivel));
+    }
 
     // Mostrar Datos integrado con Sala, Identificación polimórfica e Inscripciones
     public void mostrarDatos() {
