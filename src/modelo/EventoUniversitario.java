@@ -61,6 +61,27 @@ public class EventoUniversitario implements Serializable {
         this.actividades.add(new modelo.actividades.Curso(id, titulo, cupo, nivel));
     }
 
+    // Filtra las actividades retornando una lista del tipo exacto solicitado
+    public <T extends Actividad> List<T> filtrarActividadesPorTipo(Class<T> tipo) {
+        List<T> filtradas = new ArrayList<>();
+        for (Actividad act : this.actividades) {
+            if (tipo.isInstance(act)) {
+                filtradas.add(tipo.cast(act));
+            }
+        }
+        return filtradas;
+    }
+
+    // Calcula el costo de materiales total para cualquier lista de actividades
+    public double calcularCostoMateriales(List<? extends Actividad> listaActividades) {
+        double total = 0.0;
+        for (Actividad act : listaActividades) {
+            total += act.calcularCostoMateriales();
+        }
+        return total;
+    }
+
+
     // Mostrar Datos integrado con Sala, Identificación polimórfica e Inscripciones
     public void mostrarDatos() {
         System.out.println("--------------------------------------------------");
@@ -86,7 +107,7 @@ public class EventoUniversitario implements Serializable {
         System.out.println("--------------------------------------------------");
     }
 
-    // Método contador
+    // Metodo contador
     public static int getCantidadEventos() {
         return cantidadEventos;
     }
